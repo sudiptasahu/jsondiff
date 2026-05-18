@@ -1,0 +1,235 @@
+.results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.json-viewer {
+  overflow: auto;
+  border-radius: 18px;
+  padding: 14px 0;
+  background: var(--panel-subtle);
+}
+
+.json-line {
+  display: flex;
+  align-items: flex-start;
+  min-height: 28px;
+  padding: 2px 14px;
+  font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+  line-height: 1.7;
+  white-space: pre;
+  word-break: normal;
+}
+
+.json-line.added {
+  background: rgba(217, 239, 224, 0.95);
+}
+
+.json-line.removed {
+  background: rgba(244, 210, 205, 0.95);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.json-indent {
+  flex: 0 0 auto;
+}
+
+.json-key {
+  color: var(--key);
+  white-space: nowrap;
+}
+
+.json-colon,
+.json-comma,
+.json-bracket {
+  color: var(--text);
+}
+
+.json-value {
+  color: var(--value);
+  white-space: pre-wrap;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+.json-value.modified {
+  border-radius: 8px;
+  padding: 0 4px;
+  background: var(--modified);
+  color: var(--value-modified);
+}
+
+:host-context([data-theme='dark']) .json-line.added {
+  background: rgba(22, 101, 52, 0.42);
+  color: #dcfce7;
+}
+
+:host-context([data-theme='dark']) .json-line.added .json-key,
+:host-context([data-theme='dark']) .json-line.added .json-colon,
+:host-context([data-theme='dark']) .json-line.added .json-comma,
+:host-context([data-theme='dark']) .json-line.added .json-bracket,
+:host-context([data-theme='dark']) .json-line.added .json-value {
+  color: #dcfce7;
+}
+
+:host-context([data-theme='dark']) .json-line.removed {
+  background: rgba(127, 29, 29, 0.42);
+  color: #fee2e2;
+}
+
+:host-context([data-theme='dark']) .json-line.removed .json-key,
+:host-context([data-theme='dark']) .json-line.removed .json-colon,
+:host-context([data-theme='dark']) .json-line.removed .json-comma,
+:host-context([data-theme='dark']) .json-line.removed .json-bracket,
+:host-context([data-theme='dark']) .json-line.removed .json-value {
+  color: #fee2e2;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.response-heading h2,
+.response-subtitle {
+  margin: 0;
+}
+
+.response-subtitle {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  word-break: break-all;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+}
+
+.diff-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.diff-filter {
+  border: 1px solid rgba(88, 61, 43, 0.14);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: var(--panel-plain);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.diff-filter.active {
+  box-shadow: inset 0 0 0 2px rgba(47, 36, 30, 0.1);
+}
+
+.diff-filter.modified.active {
+  background: var(--modified);
+}
+
+.diff-filter.added.active {
+  background: var(--added);
+}
+
+.diff-filter.removed.active {
+  background: var(--removed);
+}
+
+.no-diff,
+.diff-placeholder {
+  border-radius: 18px;
+  padding: 16px;
+  font-weight: 600;
+}
+
+.no-diff {
+  background: var(--equal);
+}
+
+.diff-placeholder {
+  background: var(--panel-subtle);
+  color: var(--muted);
+}
+
+.diff-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.diff-card {
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.diff-card + .diff-card {
+  margin-top: 12px;
+}
+
+.diff-card.modified {
+  background: var(--modified);
+}
+
+.diff-card.added {
+  background: var(--added);
+}
+
+.diff-card.removed {
+  background: var(--removed);
+}
+
+.diff-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.node-key {
+  font-weight: 700;
+}
+
+.node-kind {
+  text-transform: capitalize;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.value-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.value-label {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .results,
+  .value-pair {
+    grid-template-columns: 1fr;
+  }
+}

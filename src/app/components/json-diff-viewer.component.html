@@ -1,0 +1,107 @@
+<section class="results" *ngIf="leftValue !== undefined && rightValue !== undefined">
+  <div class="panel">
+    <div class="section-heading">
+      <div class="response-heading">
+        <h2>{{ leftTitle }}</h2>
+        <p class="response-subtitle" *ngIf="leftSubtitle">{{ leftSubtitle }}</p>
+      </div>
+    </div>
+    <div class="json-viewer">
+      <div class="json-line" *ngFor="let line of responseLinesA; trackBy: trackByPrettyLine" [ngClass]="line.status">
+        <span class="json-indent" [style.width.px]="line.level * 20"></span>
+        <ng-container [ngSwitch]="line.kind">
+          <ng-container *ngSwitchCase="'property'">
+            <span class="json-key" *ngIf="line.keyText">{{ line.keyText }}</span>
+            <span class="json-colon" *ngIf="line.keyText">: </span>
+            <span class="json-value" [ngClass]="line.valueStatus">{{ line.valueText }}</span>
+            <span class="json-comma" *ngIf="line.comma">,</span>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <span class="json-bracket" *ngIf="line.keyText">{{ line.keyText }}: </span>
+            <span class="json-bracket">{{ line.text }}</span>
+            <span class="json-comma" *ngIf="line.comma">,</span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="section-heading">
+      <div class="response-heading">
+        <h2>{{ rightTitle }}</h2>
+        <p class="response-subtitle" *ngIf="rightSubtitle">{{ rightSubtitle }}</p>
+      </div>
+    </div>
+    <div class="json-viewer">
+      <div class="json-line" *ngFor="let line of responseLinesB; trackBy: trackByPrettyLine" [ngClass]="line.status">
+        <span class="json-indent" [style.width.px]="line.level * 20"></span>
+        <ng-container [ngSwitch]="line.kind">
+          <ng-container *ngSwitchCase="'property'">
+            <span class="json-key" *ngIf="line.keyText">{{ line.keyText }}</span>
+            <span class="json-colon" *ngIf="line.keyText">: </span>
+            <span class="json-value" [ngClass]="line.valueStatus">{{ line.valueText }}</span>
+            <span class="json-comma" *ngIf="line.comma">,</span>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <span class="json-bracket" *ngIf="line.keyText">{{ line.keyText }}: </span>
+            <span class="json-bracket">{{ line.text }}</span>
+            <span class="json-comma" *ngIf="line.comma">,</span>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel diff-panel" *ngIf="leftValue !== undefined && rightValue !== undefined">
+  <div class="section-heading">
+    <h2>Differences</h2>
+    <div class="diff-summary">
+      <button type="button" class="diff-filter" [class.active]="activeDiffFilter === 'all'" (click)="setDiffFilter('all')">
+        {{ diffEntries.length }} difference{{ diffEntries.length === 1 ? '' : 's' }}
+      </button>
+      <button type="button" class="diff-filter modified" [class.active]="activeDiffFilter === 'modified'" (click)="setDiffFilter('modified')">
+        Modified {{ getDiffCount('modified') }}
+      </button>
+      <button type="button" class="diff-filter added" [class.active]="activeDiffFilter === 'added'" (click)="setDiffFilter('added')">
+        Added {{ getDiffCount('added') }}
+      </button>
+      <button type="button" class="diff-filter removed" [class.active]="activeDiffFilter === 'removed'" (click)="setDiffFilter('removed')">
+        Deleted {{ getDiffCount('removed') }}
+      </button>
+    </div>
+  </div>
+
+  <div class="no-diff" *ngIf="diffEntries.length === 0">
+    Responses are identical.
+  </div>
+
+  <div class="diff-placeholder" *ngIf="diffEntries.length > 0 && activeDiffFilter === 'none'">
+    Select a summary filter to view differences.
+  </div>
+
+  <ul class="diff-list" *ngIf="getFilteredDiffEntries().length > 0">
+    <li class="diff-card" *ngFor="let entry of getFilteredDiffEntries(); trackBy: trackByDiffEntry" [ngClass]="entry.kind">
+      <div class="diff-row">
+        <span class="node-key">{{ entry.path }}</span>
+        <span class="node-kind">{{ entry.kind }}</span>
+      </div>
+
+      <div class="value-pair">
+        <div>
+          <p class="value-label">A</p>
+          <pre>{{ formatValue(entry.leftValue) }}</pre>
+        </div>
+        <div>
+          <p class="value-label">B</p>
+          <pre>{{ formatValue(entry.rightValue) }}</pre>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="diff-placeholder" *ngIf="diffEntries.length > 0 && activeDiffFilter !== 'none' && getFilteredDiffEntries().length === 0">
+    No differences for the selected filter.
+  </div>
+</section>

@@ -1,0 +1,68 @@
+<main class="page-shell">
+  <section class="hero">
+    <div class="hero-head">
+      <div>
+        <p class="eyebrow">JSON Diff</p>
+        <h1>Compare API responses, pasted JSON, or local JSON files.</h1>
+        <p class="intro">
+          Pick a comparison mode, keep the same dark or light theme across the app, and inspect readable side-by-side JSON diffs.
+        </p>
+      </div>
+
+      <div class="theme-switcher">
+        <span>Theme</span>
+        <div class="theme-menu">
+          <button
+            type="button"
+            class="theme-trigger"
+            [attr.aria-expanded]="isThemeMenuOpen"
+            aria-haspopup="menu"
+            (click)="toggleThemeMenu()"
+          >
+            <span class="theme-trigger-label">{{ getThemeLabel() }}</span>
+            <span class="theme-trigger-icon" aria-hidden="true">▾</span>
+          </button>
+          <div class="theme-dropdown panel" *ngIf="isThemeMenuOpen" role="menu" aria-label="Theme options">
+            <button
+              type="button"
+              class="theme-dropdown-option"
+              [class.active]="themeMode === 'system'"
+              (click)="setThemeMode('system')"
+              role="menuitem"
+            >
+              <span class="theme-icon" aria-hidden="true">◐</span>
+              <span>System</span>
+            </button>
+            <button
+              type="button"
+              class="theme-dropdown-option"
+              [class.active]="themeMode === 'light'"
+              (click)="setThemeMode('light')"
+              role="menuitem"
+            >
+              <span class="theme-icon" aria-hidden="true">☼</span>
+              <span>Light</span>
+            </button>
+            <button
+              type="button"
+              class="theme-dropdown-option"
+              [class.active]="themeMode === 'dark'"
+              (click)="setThemeMode('dark')"
+              role="menuitem"
+            >
+              <span class="theme-icon" aria-hidden="true">☾</span>
+              <span>Dark</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="mode-nav panel">
+    <a routerLink="/compare/apis" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Compare 2 APIs</a>
+    <a routerLink="/compare/text" routerLinkActive="active">Paste or Browse JSON</a>
+  </nav>
+
+  <router-outlet></router-outlet>
+</main>

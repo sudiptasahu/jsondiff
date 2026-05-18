@@ -1,0 +1,60 @@
+<section class="panel route-intro">
+  <p class="eyebrow">API Compare</p>
+  <h2>Compare responses from two REST endpoints.</h2>
+  <p class="intro-copy">Use the same method and optional request body for both endpoints, then inspect the diff side by side.</p>
+</section>
+
+<section class="panel composer">
+  <div class="field-grid">
+    <label class="field field-endpoint">
+      <span>Endpoint A</span>
+      <input type="url" [(ngModel)]="endpointA" placeholder="https://api.example.com/source-a" />
+    </label>
+
+    <label class="field field-endpoint">
+      <span>Endpoint B</span>
+      <input type="url" [(ngModel)]="endpointB" placeholder="https://api.example.com/source-b" />
+    </label>
+
+    <label class="field field-method">
+      <span>HTTP Method</span>
+      <select [(ngModel)]="httpMethod">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+      </select>
+    </label>
+  </div>
+
+  <label class="field">
+    <span>Auth Token (Optional)</span>
+    <input type="text" [(ngModel)]="authToken" placeholder="Paste bearer token without the Bearer prefix" />
+  </label>
+
+  <label class="field">
+    <span>Request Body JSON</span>
+    <textarea [(ngModel)]="requestBody" rows="12" [disabled]="httpMethod === 'GET'" placeholder="{&#10;  &quot;id&quot;: 123&#10;}"></textarea>
+  </label>
+
+  <div class="actions">
+    <div class="action-buttons">
+      <button type="button" (click)="compareResponses()" [disabled]="isLoading">
+        {{ isLoading ? 'Comparing...' : 'Compare Responses' }}
+      </button>
+      <button type="button" class="secondary-button" (click)="beautifyRequestBody()" [disabled]="httpMethod === 'GET'">
+        Beautify JSON
+      </button>
+    </div>
+    <p class="hint action-hint">`GET` ignores the request body. If a token is provided, both `GET` and `POST` requests include `Authorization: Bearer &lt;token&gt;`.</p>
+  </div>
+
+  <p *ngIf="errorMessage" class="error-banner">{{ errorMessage }}</p>
+</section>
+
+<app-json-diff-viewer
+  [leftValue]="responseA"
+  [rightValue]="responseB"
+  leftTitle="Response A"
+  rightTitle="Response B"
+  [leftSubtitle]="endpointA"
+  [rightSubtitle]="endpointB"
+></app-json-diff-viewer>

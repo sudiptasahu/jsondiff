@@ -1,0 +1,36 @@
+<section class="panel route-intro">
+  <p class="eyebrow">Paste Or Browse JSON</p>
+  <h2>Compare two JSON payloads from text input or local files.</h2>
+  <p class="intro-copy">Paste JSON directly or browse a file for either side. File content is validated before it populates the editor.</p>
+</section>
+
+<section class="panel composer">
+  <div class="text-grid">
+    <label class="field">
+      <span>JSON A</span>
+      <textarea [(ngModel)]="jsonA" rows="16"></textarea>
+      <div class="file-actions">
+        <input type="file" accept="application/json,.json" (change)="onFileSelected($event, 'A')" />
+        <p class="file-name" *ngIf="fileNameA">{{ fileNameA }}</p>
+      </div>
+    </label>
+
+    <label class="field">
+      <span>JSON B</span>
+      <textarea [(ngModel)]="jsonB" rows="16"></textarea>
+      <div class="file-actions">
+        <input type="file" accept="application/json,.json" (change)="onFileSelected($event, 'B')" />
+        <p class="file-name" *ngIf="fileNameB">{{ fileNameB }}</p>
+      </div>
+    </label>
+  </div>
+
+  <div class="actions">
+    <button type="button" (click)="compareJson()">Compare JSON</button>
+    <p class="hint">Both pasted text and browsed file content must be valid JSON before comparison.</p>
+  </div>
+
+  <p *ngIf="errorMessage" class="error-banner">{{ errorMessage }}</p>
+</section>
+
+<app-json-diff-viewer [leftValue]="responseA" [rightValue]="responseB" leftTitle="JSON A" rightTitle="JSON B"></app-json-diff-viewer>

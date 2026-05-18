@@ -1,0 +1,168 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.route-intro {
+  margin-bottom: 24px;
+}
+
+.route-intro h2,
+.intro-copy,
+.file-name {
+  margin: 0;
+}
+
+.intro-copy {
+  margin-top: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.composer {
+  margin-bottom: 24px;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 5fr) minmax(0, 2fr);
+  gap: 16px;
+}
+
+.text-grid,
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  min-width: 0;
+}
+
+.field-endpoint,
+.field-method {
+  margin-bottom: 0;
+}
+
+.field span,
+.hint,
+.file-name {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(88, 61, 43, 0.18);
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: var(--panel-plain);
+  color: var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(15, 118, 110, 0.18);
+  border-color: var(--accent);
+}
+
+textarea,
+.file-name {
+  font-family: "SFMono-Regular", "Menlo", "Consolas", monospace;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondary-button {
+  background: var(--panel-plain);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-hint {
+  flex: 1 1 320px;
+  margin: 0;
+}
+
+.error-banner {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(196, 72, 72, 0.12);
+  color: #8f2424;
+}
+
+:host-context([data-theme='dark']) .error-banner {
+  background: rgba(127, 29, 29, 0.42);
+  color: #fee2e2;
+  border: 1px solid rgba(252, 165, 165, 0.2);
+}
+
+.file-picker input[type='file'] {
+  padding: 12px;
+}
+
+.file-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.file-actions input[type='file'] {
+  max-width: 100%;
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .field-grid,
+  .text-grid,
+  .file-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,26 @@
+<section class="panel route-intro">
+  <p class="eyebrow">Browse JSON</p>
+  <h2>Compare two local JSON files.</h2>
+  <p class="intro-copy">Pick two `.json` files from your machine. They are parsed in the browser and compared locally.</p>
+</section>
+
+<section class="panel composer">
+  <div class="file-grid">
+    <label class="field file-picker">
+      <span>File A</span>
+      <input type="file" accept="application/json,.json" (change)="onFileSelected($event, 'A')" />
+      <p class="file-name" *ngIf="fileNameA">{{ fileNameA }}</p>
+    </label>
+
+    <label class="field file-picker">
+      <span>File B</span>
+      <input type="file" accept="application/json,.json" (change)="onFileSelected($event, 'B')" />
+      <p class="file-name" *ngIf="fileNameB">{{ fileNameB }}</p>
+    </label>
+  </div>
+
+  <p class="hint">Select both files to compare them side by side. You can re-pick either file at any time.</p>
+  <p *ngIf="errorMessage" class="error-banner">{{ errorMessage }}</p>
+</section>
+
+<app-json-diff-viewer [leftValue]="responseA" [rightValue]="responseB" leftTitle="File A" rightTitle="File B"></app-json-diff-viewer>
